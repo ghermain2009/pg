@@ -11,11 +11,16 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Form\IndexForm;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        $datos = $this->params()->fromPost();
+        $viewmodel = new ViewModel();
+        $form = new IndexForm($datos);
+        $viewmodel->form = $form;
+        return $viewmodel;
     }
 }
