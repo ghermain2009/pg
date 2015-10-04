@@ -1,14 +1,15 @@
+<br><br><br><br>
 <?php echo $this->form()->openTag($this->form); ?>
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h4 class="panel-title">Simulador de Pago Tarjeta VISA</h4>
+        <h4 class="panel-title">Simulador de Pago Payme</h4>
     </div>
     <div class="panel-body">
         
         <div class="form-group">
             <label for="subtitulo" class="col-lg-2 control-label">Transacción :</label>
             <div class="col-lg-10">
-                <?php echo $this->formRow($this->form->get('transaccion')); ?>
+                <?php echo $this->formRow($this->form->get('purchaseOperationNumber')); ?>
             </div>
         </div>
         <div class="form-group">
@@ -18,15 +19,39 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="subtitulo" class="col-lg-2 control-label">Tarjeta :</label>
+            <label for="subtitulo" class="col-lg-2 control-label">Tipo Tarjeta :</label>
             <div class="col-lg-10">
-                <?php echo $this->formRow($this->form->get('tarjeta')); ?>
+                <?php echo $this->formRow($this->form->get('brand')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="subtitulo" class="col-lg-2 control-label">Numero Tarjeta :</label>
+            <div class="col-lg-10">
+                <?php echo $this->formRow($this->form->get('paymentReferenceCode')); ?>
             </div>
         </div>
         <div class="form-group">
             <label for="subtitulo" class="col-lg-2 control-label">Estado :</label>
             <div class="col-lg-10">
-                <?php echo $this->formRow($this->form->get('estado')); ?>
+                <?php echo $this->formRow($this->form->get('authorizationResult')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="subtitulo" class="col-lg-2 control-label">Codigo Autorizacion :</label>
+            <div class="col-lg-10">
+                <?php echo $this->formRow($this->form->get('authorizationCode')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="subtitulo" class="col-lg-2 control-label">Codigo Error :</label>
+            <div class="col-lg-10">
+                <?php echo $this->formRow($this->form->get('errorCode')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="subtitulo" class="col-lg-2 control-label">Mensaje Error :</label>
+            <div class="col-lg-10">
+                <?php echo $this->formRow($this->form->get('errorMessage')); ?>
             </div>
         </div>
         <div class="form-group">
@@ -37,3 +62,6 @@
     </div>
 </div>
 <?php echo $this->form()->closeTag(); ?>
+Parametros Recepcionados:<br>
+<?php print_r($datos);?>
+

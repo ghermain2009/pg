@@ -17,9 +17,13 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $serviceLocator = $this->getServiceLocator();
+        $configuracion = $serviceLocator->get('Config');
+        $url = $configuracion['lhostrespuesta'];
+        
         $datos = $this->params()->fromPost();
-        $viewmodel = new ViewModel();
-        $form = new IndexForm($datos);
+        $viewmodel = new ViewModel(array('datos' => $datos));
+        $form = new IndexForm($datos,$url);
         $viewmodel->form = $form;
         return $viewmodel;
     }

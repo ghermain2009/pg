@@ -8,20 +8,28 @@ use Zend\Form\Form;
 
 class IndexForm extends Form
 {
-    public function __construct($datos = null) {
+    public function __construct($datos = null, $url = null) {
         parent::__construct('index');
         
         $this->setAttribute('method', 'post');
         $this->setAttribute('role', 'form');
-        $this->setAttribute('action', 'http://buenisimo.ec/campana/pagorequest');
+        $this->setAttribute('action', $url.'/campana/pagorequest');
+        
+        $selEstados = array('00' => 'Aprobado',
+                            '01' => 'Denegada',
+                            '05' => 'Rechazada');
+        
+        $selTarjetas = array('VISA' => 'VISA',
+                            'MASTERCARD' => 'MASTERCARD',
+                            'AMEX' => 'AMEX');
         
         $this->add(array(
-            'name' => 'transaccion',
+            'name' => 'purchaseOperationNumber',
             'attributes' => array(
                 'type'  => 'text',
                 'class'  => 'form-control',
-                'placeholder'  => 'Ingrese Usuario',
-                'value' => $datos['operacion'],
+                'placeholder'  => 'Ingrese Codigo Transaccion',
+                'value' => $datos['purchaseOperationNumber'],
             ),
         ));
         $this->add(array(
@@ -30,11 +38,21 @@ class IndexForm extends Form
                 'type'  => 'text',
                 'class'  => 'form-control',
                 'placeholder'  => 'Ingrese Monto',
-                'value' => $datos['monto'],
+                'value' => $datos['purchaseAmount'],
             ),
         ));
         $this->add(array(
-            'name' => 'tarjeta',
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'brand',
+            'options' => array(
+                 'value_options' => $selTarjetas,
+             ),
+            'attributes' => array(
+                'class' => 'form-control input-sm'
+            ),
+        ));
+        $this->add(array(
+            'name' => 'paymentReferenceCode',
             'attributes' => array(
                 'type'  => 'text',
                 'class'  => 'form-control',
@@ -43,14 +61,46 @@ class IndexForm extends Form
             ),
         ));
         $this->add(array(
-            'name' => 'estado',
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'authorizationResult',
+            'options' => array(
+                 'value_options' => $selEstados,
+             ),
             'attributes' => array(
-                'type'  => 'password',
-                'class'  => 'form-control',
-                'placeholder'  => 'Ingrese Tarjeta',
-                'value' => '3',
+                'class' => 'form-control input-sm'
             ),
         ));
+        
+        $this->add(array(
+            'name' => 'authorizationCode',
+            'attributes' => array(
+                'type'  => 'text',
+                'class'  => 'form-control',
+                'placeholder'  => 'Codigo de Autorizacion',
+                'value' => '',
+            ),
+        ));
+        
+        $this->add(array(
+            'name' => 'errorCode',
+            'attributes' => array(
+                'type'  => 'text',
+                'class'  => 'form-control',
+                'placeholder'  => 'Codigo de Error',
+                'value' => '',
+            ),
+        ));
+        
+        $this->add(array(
+            'name' => 'errorMessage',
+            'attributes' => array(
+                'type'  => 'text',
+                'class'  => 'form-control',
+                'placeholder'  => 'Mensaje de Error',
+                'value' => '',
+            ),
+        ));
+         
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
